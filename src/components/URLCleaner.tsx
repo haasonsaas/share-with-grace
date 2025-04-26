@@ -13,13 +13,21 @@ const URLCleaner = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Get the current tab's URL
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0]?.url) {
-        setOriginalUrl(tabs[0].url);
-        cleanUrlAndUpdateState(tabs[0].url);
-      }
-    });
+    // Check if we're in a Chrome extension environment
+    if (typeof chrome !== 'undefined' && chrome.tabs) {
+      // Get the current tab's URL
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (tabs[0]?.url) {
+          setOriginalUrl(tabs[0].url);
+          cleanUrlAndUpdateState(tabs[0].url);
+        }
+      });
+    } else {
+      // In development environment, use a sample URL
+      const sampleUrl = "https://example.com/page?utm_source=newsletter&utm_medium=email&utm_campaign=welcome";
+      setOriginalUrl(sampleUrl);
+      cleanUrlAndUpdateState(sampleUrl);
+    }
   }, []);
 
   const cleanUrlAndUpdateState = (url: string) => {
