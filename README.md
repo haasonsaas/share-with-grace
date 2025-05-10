@@ -17,8 +17,8 @@ This project is built with:
 
 1. Clone this repository:
 ```sh
-git clone https://github.com/haasonsaas/share-with-grace-chrome.git
-cd share-with-grace-chrome
+git clone https://github.com/haasonsaas/share-with-grace.git
+cd share-with-grace
 ```
 
 2. Install dependencies:
